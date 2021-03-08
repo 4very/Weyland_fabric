@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "sommea.weyland.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "WeylandMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
