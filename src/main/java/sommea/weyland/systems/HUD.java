@@ -1,25 +1,16 @@
-package sommea.weyland;
+package sommea.weyland.systems;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.StatusEffectSpriteManager;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 
@@ -34,11 +25,16 @@ public class HUD {
         });
     }
 
+    private int maxStam = 500;
+    private int stamDelay = 200;
+    private int wait;
+    private int stam = maxStam;
+
     private void render() {
         final PlayerEntity player = client.player;
         final TextRenderer textRenderer = client.textRenderer;
         final MatrixStack matrixStack = new MatrixStack();
-        
+
         if (player == null) return;
 
 
@@ -46,18 +42,27 @@ public class HUD {
 
         List<Runnable> statusEffectsRunnables = Lists.newArrayListWithExpectedSize(1);
 
-        final int spriteSize = 18;
+        if(player.isSprinting()){
+            stam--;
+            wait = stamDelay;
+        } else {
+            wait--;
+        }
+        if (stam <= 0 && player.isSprinting()){
+            player.setSprinting(false);
+        }
+        if(!player.isSprinting() && stam < maxStam && wait <= 0){
+            stam++;
+        }
+        String buildStr = "";
+        for (int i = 0; i < Math.ceil(stam/20F); i++) {
+            buildStr += "|";
+        }
 
-        String formattedDuration = "testing";
-
-        final int x = 3;
-        final int y = 21;
-
+        final String overlayStr = buildStr;
 
         statusEffectsRunnables.add(() -> {
-            final float textYOffset = spriteSize / 2f - textRenderer.fontHeight / 2.5f;
-            int color = 0xFF5555;
-            textRenderer.draw(matrixStack, formattedDuration, x + spriteSize + 3, y + textYOffset, color);
+            textRenderer.draw(matrixStack, overlayStr, 15, 15, 0x000000);
         });
         statusEffectsRunnables.forEach(Runnable::run);
 

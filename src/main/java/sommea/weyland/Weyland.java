@@ -8,11 +8,16 @@ import org.apache.logging.log4j.Logger;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import sommea.weyland.systems.HUD;
 
 @Environment(EnvType.CLIENT)
 public class Weyland implements ModInitializer {
 	public static final String MOD_ID = "weyland";
 	public static Logger LOGGER = LogManager.getLogger();
+
+    public static void log(Level level, String message) {
+        LOGGER.log(level, "[" + MOD_ID + "] " + message);
+    }
 
 	public HUD hud;
 
