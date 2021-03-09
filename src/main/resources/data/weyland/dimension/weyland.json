@@ -1,0 +1,30 @@
+{
+  "type": {
+    "name": "minecraft:weyland",
+    "ultrawarm": false,
+    "natural": false,
+    "piglin_safe": false,
+    "respawn_anchor_works": false,
+    "bed_works": true,
+    "has_raids": false,
+    "has_skylight": true,
+    "has_ceiling": false,
+    "coordinate_scale": 1,
+    "ambient_light": 1,
+    "logical_height": 128,
+    "infiniburn": "minecraft:infiniburn_overworld",
+    "min_y": 16,
+    "height": 128,
+    "effects": "minecraft:overworld"
+  },
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 196607377,
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "seed": 196607377,
+      "biome": "weyland:base_biome"
+    },
+    "settings": "minecraft:overworld"
+  }
+}
