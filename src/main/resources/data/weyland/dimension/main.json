@@ -1,0 +1,10 @@
+{
+  "generator": {
+    "type": "weyland:main",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:plains"
+    }
+  },
+  "type": "weyland:main_type"
+}

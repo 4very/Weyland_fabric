@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "WeylandMixin"
+    "WeylandMixin",
+    "structureMixin"
   ],
   "injectors": {
     "defaultRequire": 1
